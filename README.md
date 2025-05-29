@@ -1,1 +1,1 @@
-^gokberk
+merhaba dünya
