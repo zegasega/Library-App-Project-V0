@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: lib_db
+      MYSQL_USER: lib_user
+      MYSQL_PASSWORD: lib_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - libnet
+    restart: unless-stopped
+
+volumes:
+  mariadb_data:
+
+networks:
+  libnet:
+    driver: bridge

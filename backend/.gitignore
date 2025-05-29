@@ -1,0 +1,22 @@
+# Node modules klasörünü yoksay
+node_modules/
+
+# Log dosyaları
+*.log
+
+
+
+# npm debug logları
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Paket kilit dosyaları (isteğe bağlı, genellikle dahil edilir)
+# package-lock.json
+# yarn.lock
+
+# VSCode ayarları (isteğe bağlı)
+.vscode/
+
+# MacOS sistem dosyaları (isteğe bağlı)
+.DS_Store
