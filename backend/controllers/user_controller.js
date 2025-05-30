@@ -31,6 +31,20 @@ class UserController extends BaseController{
             });
         }
     }
+    async GetUserByFilter(req, res) {
+        try {
+            users = await this.service.userService.getByFilter(req.query);
+            res.status(200).json({
+                message: "Users retrieved successfully",
+                users: users
+            });
+        } catch (error) {
+            
+            res.status(400).json({
+                message: error.message || "An error occurred while retrieving users."
+            });
+        }
+    }
 }
 
 module.exports = new UserController();

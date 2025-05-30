@@ -63,6 +63,40 @@ class UserService extends BaseService{
         return { user, accesToken, refreshToken };
     }
 
+    async updateUser(id, userData) {
+        const user = await this.db.User.findByPk(id);
+        if (!user) {
+            throw new Error("User not found.");
+        }
+
+        const updatedUser = await user.update(userData);
+        return updatedUser;
+    }
+
+    async deleteUser(id) {
+        const user = await this.db.User.findByPk(id);
+        if (!user) {
+            throw new Error("User not found.");
+        }
+
+        await user.destroy();
+        return { message: "User deleted successfully." };
+    }
+   
+    async getFilteredUsers(query = {}) {
+        const where = {};
+        if (query.id) where.id = query.id;
+        if (query.fullName) where.fullName = { [this.db.Sequelize.Op.like]: `%${query.fullName}%` };
+        if (query.phoneNumber) where.phoneNumber = query.phoneNumber;
+        if (query.address) where.address = { [this.db.Sequelize.Op.like]: `%${query.address}%` };
+        if (query.role) where.role = query.role;
+        if (query.email) where.email = query.email;
+        if (query.username) where.username = { [this.db.Sequelize.Op.like]: `%${query.username}%` };
+
+        return await this.db.User.findAll({ where });
+    }
+
+
 }
 
 module.exports = new UserService();
