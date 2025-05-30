@@ -18,4 +18,19 @@ class UserController extends BaseController{
             });
         }
     }
+    async Login(req, res) {
+        try {
+            const user = await this.service.userService.login(req.body);
+            res.status(200).json({
+                message: "Login successful",
+                user: user
+            });
+        } catch (error) {
+            res.status(400).json({
+                message: error.message || "An error occurred during login."
+            });
+        }
+    }
 }
+
+module.exports = new UserController();

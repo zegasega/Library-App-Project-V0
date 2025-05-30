@@ -37,7 +37,6 @@ class UserService extends BaseService{
             membershipDate,
             password: hashedPassword, 
             role
-            
         });
 
         return newUser;
