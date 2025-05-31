@@ -45,6 +45,34 @@ class UserController extends BaseController{
             });
         }
     }
+
+    async updateUser(req, res) {
+        try {
+            const updatedUser = await this.service.userService.update(req.params.id, req.body);
+            res.status(200).json({
+                message: "User updated successfully",
+                user: updatedUser
+            });
+        } catch (error) {
+            res.status(400).json({
+                message: error.message || "An error occurred while updating the user."
+            });
+        }
+    }
+
+    async deleteUser(req, res) {
+        try {
+            const result = await this.service.userService.delete(req.params.id);
+            res.status(200).json({
+                message: "User deleted successfully",
+                result: result
+            });
+        } catch (error) {
+            res.status(400).json({
+                message: error.message || "An error occurred while deleting the user."
+            });
+        }
+    }
 }
 
 module.exports = new UserController();
