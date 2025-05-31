@@ -73,6 +73,20 @@ class UserController extends BaseController{
             });
         }
     }
+
+    async changePassword(req, res) {
+        try {
+            const result = await this.service.userService.changePassword(req.params.id, req.body.oldPassword, req.body.newPassword);
+            res.status(200).json({
+                message: "Password changed successfully",
+                result: result
+            });
+        } catch (error) {
+            res.status(400).json({
+                message: error.message || "An error occurred while changing the password."
+            });
+        }
+    }   
 }
 
 module.exports = new UserController();

@@ -113,6 +113,24 @@ class UserService extends BaseService{
         return results;
     }
 
+    async changePassword(userId, oldPassword, newPassword) {
+        const user = await this.db.User.findByPk(userId);
+        if (!user) {
+            throw new Error("User not found.");
+        }
+
+        const isOldPasswordValid = await this.Utils.comparePassword(oldPassword, user.password);
+        if (!isOldPasswordValid) {
+            throw new Error("Old password is incorrect.");
+        }
+
+        const hashedNewPassword = await this.Utils.hashPassword(newPassword);
+        user.password = hashedNewPassword;
+        await user.save();
+
+        return { message: "Password changed successfully." };
+    }
+
 }
 
 module.exports = new UserService();
