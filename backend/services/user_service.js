@@ -130,7 +130,6 @@ class UserService extends BaseService{
 
         return { message: "Password changed successfully." };
     }
-
 }
 
 module.exports = new UserService();

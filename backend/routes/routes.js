@@ -10,7 +10,7 @@ router.delete('/users/:id',  async (req, res) => {userController.deleteUser(req,
 router.put("/users/password/:id", async (req, res) => {userController.changePassword(req, res);});
 
 
-
+router.get("/test", async (req,res) =>{userController.test(req, res);});
 
 
 

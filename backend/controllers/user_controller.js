@@ -87,6 +87,11 @@ class UserController extends BaseController{
             });
         }
     }   
+    async test(req, res) {
+        res.status(200).json({
+            message: "Test endpoint reached successfully",
+        });
+    }
 }
 
 module.exports = new UserController();
