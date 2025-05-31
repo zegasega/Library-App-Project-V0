@@ -7,7 +7,7 @@ class UserController extends BaseController{
 
     async Register(req, res) {
         try {
-            newUser = await this.service.userService.create(req.body);
+            const newUser = await this.service.userService.create(req.body);
             res.status(201).json({
                 message: "User created successfully",
                 user: newUser

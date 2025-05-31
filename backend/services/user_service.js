@@ -1,12 +1,10 @@
-const { where } = require("sequelize");
 const BaseService = require("../core/base_service");
 const db = require("../db/index");
-const { hashPassword } = require("../utils/utils");
-
 
 class UserService extends BaseService{
     constructor() {
         super(db.User);
+        this.db = require("../db/index");
     }
 
     async create(userData) {
@@ -42,7 +40,7 @@ class UserService extends BaseService{
         return newUser;
     }
 
-    async login({email, password}) {
+    async login({ email, password }) {
         const user = await this.db.User.findOne({ where: { email } });
 
         if (!user) {
@@ -55,13 +53,27 @@ class UserService extends BaseService{
             throw new Error("Invalid password.");
         }
 
-        const refreshToken = this.Utils.generateRefreshToken({ fullName, username, email, phoneNumber, address, membershipDate, role });
-        const accesToken = this.Utils.generateAccessToken({ fullName, username, email, phoneNumber, address, membershipDate, role });
+        const payload = {
+            id: user.id,
+            fullName: user.fullName,
+            username: user.username,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            address: user.address,
+            membershipDate: user.membershipDate,
+            role: user.role
+        };
 
-        await user.update({ refreshToken, accessToken });
+        const refreshToken = this.Utils.generateRefreshToken(payload);
+        const accessToken = this.Utils.generateAccessToken(payload);
 
-        return { user, accesToken, refreshToken };
+        // Bu alanlar user modelinde varsa güncellenir, yoksa güncellenemez.
+        // Eğer DB'de refreshToken/accessToken alanları yoksa bu satırı kaldırabilirsin.
+        // await user.update({ refreshToken, accessToken });
+
+        return { user, accessToken, refreshToken };
     }
+
 
     async updateUser(id, userData) {
         const user = await this.db.User.findByPk(id);
@@ -95,7 +107,6 @@ class UserService extends BaseService{
 
         return await this.db.User.findAll({ where });
     }
-
 
 }
 
