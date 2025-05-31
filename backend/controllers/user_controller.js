@@ -33,7 +33,7 @@ class UserController extends BaseController{
     }
     async GetUserByFilter(req, res) {
         try {
-            users = await this.service.userService.getByFilter(req.query);
+            const users = await this.service.userService.getFilteredUsers(req.query);
             res.status(200).json({
                 message: "Users retrieved successfully",
                 users: users

@@ -105,7 +105,12 @@ class UserService extends BaseService{
         if (query.email) where.email = query.email;
         if (query.username) where.username = { [this.db.Sequelize.Op.like]: `%${query.username}%` };
 
-        return await this.db.User.findAll({ where });
+        const results = await this.db.User.findAll({ where });
+
+        if (results.length === 0) {
+            throw new Error("No users found with the provided filters.");
+        }
+        return results;
     }
 
 }
