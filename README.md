@@ -12,4 +12,4 @@
 - 🔑 JWT Middleware
 - 🛡️ Role Middleware
 
-![Ekran Görüntüsü](blog_db.png)
+![Ekran Görüntüsü](db_blog.png)
