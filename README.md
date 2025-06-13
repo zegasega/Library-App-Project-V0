@@ -45,3 +45,5 @@ Table post_tags {
   tag_id int [ref: > tags.id]
   Note: "Many-to-many relationship between posts and tags"
 }
+
+
