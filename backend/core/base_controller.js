@@ -1,8 +1,7 @@
-
-
 class BaseController {
   constructor() {
-    this.service = require("../services/index");
+    this.service = require("./../services");
+
   } 
 }
 

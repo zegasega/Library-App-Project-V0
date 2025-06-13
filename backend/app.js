@@ -4,8 +4,6 @@ const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const cors = require("cors")
 const helmet = require('helmet');
-const routes = require('./routes/routes');
-
 
 
 const limiter = rateLimit({
@@ -21,10 +19,10 @@ const limiter = rateLimit({
 });
 
 const corsOptions = {
-  origin: ['http://localhost:3000'],                      // Sadece bu origin'lerden gelen isteklere izin ver
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],              // Hangi HTTP metodlarına izin verileceği
-  allowedHeaders: ['Content-Type', 'Authorization'],      // Hangi header'lara izin verileceği
-  credentials: true,                                      // Tarayıcıdan gelen cookie, authorization header vb. bilgiler iletmeye izin verir
+  origin: ['http://localhost:3000'],                       // Sadece bu origin'lerden gelen isteklere izin ver
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],               // Hangi HTTP metodlarına izin verileceği
+  allowedHeaders: ['Content-Type', 'Authorization'],       // Hangi header'lara izin verileceği
+  credentials: true,                                       // Tarayıcıdan gelen cookie, authorization header vb. bilgiler iletmeye izin verir
   optionsSuccessStatus: 200 
 };
 
@@ -40,9 +38,9 @@ app.use(morgan('dev'));
 
 
 app.get('/', (req, res) => {
-  res.send('API çalışıyor 🚀');
+  res.send('API çalışıyor');
 });
-
-app.use('/', routes);
+const userRoutes = require('./routes/routes');
+app.use('/api', userRoutes);
 
 module.exports = app;

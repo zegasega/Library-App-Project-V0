@@ -17,9 +17,7 @@ async function startServer() {
 
     await db.sequelize.sync({ alter: true, force: true });
     console.log('Tables synchronized');
-
-
-
+    
     server.listen(PORT, () => {
       console.log(`Server is running at http://localhost:${PORT}`);
     });
