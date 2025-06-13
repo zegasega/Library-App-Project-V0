@@ -1,56 +1,39 @@
+const role = require("../../middleware/role");
+
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define("User", {
+  const User = sequelize.define('User', {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
-    },
-    fullName: {
-      type: DataTypes.STRING,
-      allowNull: true,
+      autoIncrement: true,
     },
     username: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
+      unique: true,
     },
     email: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
-    },
-    phoneNumber: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    address: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    membershipDate: {
-      type: DataTypes.DATEONLY,
-      defaultValue: DataTypes.NOW,
+      unique: true,
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM("admin", "librarian", "member","manager","superadmin"),
-      defaultValue: "member",
+      type: DataTypes.ENUM('user', 'admin', 'superadmin'),
+      defaultValue: 'user',
       allowNull: false,
-    },
-    isActive: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true,
     },
     jwtTokenVersion: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
-    }
+    },
   }, {
-    timestamps: true,
-    tableName: 'users'
+    tableName: 'users',
+    timestamps: false,
+    underscored: true,
   });
 
   return User;

@@ -1,17 +1,22 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const userController = require('../controllers/user_controller');
+const userController = require("../controllers/userController");
+const authMiddleware = require("../middleware/auth");
+const roleMiddleware = require("../middleware/role");
 
-router.post('/register', async (req, res) => {userController.Register(req, res);});
-router.post('/login',  async (req, res) => {userController.Login(req, res);});
-router.get('/users',  async (req, res) => {userController.GetUserByFilter(req, res);});
-router.put('/users/:id',  async (req, res) => {userController.updateUser(req, res);});
-router.delete('/users/:id',  async (req, res) => {userController.deleteUser(req, res);});
-router.put("/users/password/:id", async (req, res) => {userController.changePassword(req, res);});
+// User routes
+router.get("user", authMiddleware, (req, res) => userController.getUser(req, res));
+router.get("users", authMiddleware, roleMiddleware("admin"), (req, res) => userController.getAllUsers(req, res));
+router.get("user/:id", authMiddleware, roleMiddleware("admin"), (req, res) => userController.getUserById(req, res));
+router.get("user/query", authMiddleware, roleMiddleware("admin"), (req, res) => userController.getUserByQuery(req, res));
 
 
-router.get("/test", async (req,res) =>{userController.test(req, res);});
-
+// User authentication routes
+router.post("/auth/register", (req, res) => userController.register(req, res));
+router.post("/auth/login", (req, res) => userController.login(req, res));
+router.post("/auth/logout", authMiddleware, (req, res) => userController.logout(req, res));
+router.put("/auth/user", authMiddleware, (req, res) => userController.update(req, res));
+router.delete("/auth/user", authMiddleware, (req, res) => userController.delete(req, res));
 
 
 module.exports = router;

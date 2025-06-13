@@ -16,13 +16,7 @@ const authMiddleware = async (req, res, next) => {
     if (!user) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
-    
-    // Check if the user is banned
-    const banRecord = await UserBan.findOne({ where: { userId: user.id } });
-    if (banRecord) {
-      return res.status(403).json({ message: 'User is banned' });
-    }
-
+  
     if (user.jwtTokenVersion !== decoded.jwtTokenVersion) {
 
       return res.status(401).json({ message: 'Unauthorized' });

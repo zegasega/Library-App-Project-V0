@@ -1,25 +1,19 @@
 version: '3.8'
 
 services:
-  mariadb:
+  my_mariadb:
     image: mariadb:latest
-    container_name: mariadb
+    container_name: my_mariadb
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: lib_db
-      MYSQL_USER: lib_user
-      MYSQL_PASSWORD: lib_pass
+      MYSQL_DATABASE: blogdb
+      MYSQL_USER: bloguser
+      MYSQL_PASSWORD: blogpass
     ports:
-      - "3306:3306"
+      - "3307:3306"  # Host 3307 -> Container 3306
     volumes:
-      - mariadb_data:/var/lib/mysql
-    networks:
-      - libnet
-    restart: unless-stopped
+      - my_mariadb_data:/var/lib/mysql
 
 volumes:
-  mariadb_data:
-
-networks:
-  libnet:
-    driver: bridge
+  my_mariadb_data:

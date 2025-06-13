@@ -1,6 +1,7 @@
 const service = {};
 
-service.userService = require("./user_service");
+
+service.userService = require("./userService");
 
 
 module.exports = service;
