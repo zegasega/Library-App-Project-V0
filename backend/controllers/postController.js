@@ -68,25 +68,5 @@ class postController extends BaseController{
         }
     }
 
-    async getPostsByQuery(req, res) {
-        try {
-            const query = req.query;
-            const result = await this.service.postService.getPostsByQuery(query);
-            res.status(200).json(result);
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    }
 
-
-    async getPostsByCategory(req, res) {
-        try {
-            const category = req.params.category;
-            const result = await this.service.postService.getPostsByCategory(category);
-            res.status(200).json(result);
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    }
-    
 }
