@@ -54,3 +54,5 @@ class postService extends BaseService{
         return posts;
     }
 }
+
+module.exports = new postService();
