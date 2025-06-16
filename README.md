@@ -1,18 +1,7 @@
-# 📚 Blog API
 
-## 🛠 Backend
-
-### 🚀 Özellikler
-
-- 🔐 Login
-- 📝 Register
-- 🔍 Get Users by Filter
-- ✏️ Update User
-- 🗑️ Delete User
-- 🔑 JWT Middleware
-- 🛡️ Role Middleware
 
 ![Ekran Görüntüsü](db_blog.png)
+
 
 
 Table users {
@@ -59,3 +48,5 @@ Table post_tags {
   tag_id int [ref: > tags.id]
   Note: "Many-to-many relationship between posts and tags"
 }
+
+
