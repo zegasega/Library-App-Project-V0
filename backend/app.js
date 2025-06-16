@@ -41,6 +41,6 @@ app.get('/', (req, res) => {
   res.send('API çalışıyor');
 });
 const userRoutes = require('./routes/routes');
-app.use('/api', userRoutes);
+app.use('/', userRoutes);
 
 module.exports = app;

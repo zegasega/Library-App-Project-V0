@@ -7,10 +7,9 @@ const postController = require("../controllers/postController");
 
 
 // User routes
-router.get("user", authMiddleware, (req, res) => userController.getUser(req, res));
-router.get("users", authMiddleware, roleMiddleware("admin"), (req, res) => userController.getAllUsers(req, res));
-router.get("user/:id", authMiddleware, roleMiddleware("admin"), (req, res) => userController.getUserById(req, res));
-router.get("user/query", authMiddleware, roleMiddleware("admin"), (req, res) => userController.getUserByQuery(req, res));
+router.get("/users", authMiddleware,  (req, res) => userController.getAllUsers(req, res));
+router.get("/users/:id", authMiddleware, (req, res) => userController.getUserById(req, res));
+router.get("/user/query", authMiddleware, (req, res) => userController.getUserByQuery(req, res));
 
 
 // User authentication routes

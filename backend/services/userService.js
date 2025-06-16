@@ -16,7 +16,7 @@ class userService extends BaseService{
     });
 
     if (existingUser) {
-        throw new Error("User already exists with this email");
+        throw new Error("User with this email already exists");
     }
 
     const hashedPassword = await this.Utils.hashPassword(userPayload.password);
@@ -179,6 +179,13 @@ class userService extends BaseService{
             accessToken: newAccessToken,
             refreshToken: newRefreshToken
         };
+    }
+
+    async getUserByQuery(query) {
+        const users = await this.db.User.findAll({
+            where: query,
+            attributes: ['id', 'username', 'email']
+        })
     }
 }
 

@@ -1,8 +1,10 @@
 const BaseService = require("../core/base_service");
+const db = require("../db/index");
 
 class postService extends BaseService{
     constructor() {
         super(db.User);
+        this.db = db;
     }
 
     async createPost(postPayload) {
