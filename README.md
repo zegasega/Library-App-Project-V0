@@ -1,4 +1,4 @@
-# 📚 Library Management API
+# 📚 Blog API
 
 ## 🛠 Backend
 
